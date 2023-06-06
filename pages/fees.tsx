@@ -1,10 +1,10 @@
-import { useFeeData } from 'wagmi'
+import {useFeeData} from 'wagmi'
 
 const FeesPage = () => {
-    const { data, isError, isLoading } = useFeeData()
-    console.log('FeesPage',data);
-    if (isLoading) return <div>Fetching fee data…</div>
-    if (isError) return <div>Error fetching fee data</div>
-    return <div>Fee data: {JSON.stringify(data?.formatted)}</div>
+    const {data, isError, isLoading} = useFeeData()
+
+    if (isLoading) return <div className={'py-8'}>Fetching fee data…</div>
+    if (isError) return <div className={'py-8'}>Error fetching fee data</div>
+    return <div className={'py-8'}>Fee data: {JSON.stringify(data?.formatted)}</div>
 }
 export default FeesPage;

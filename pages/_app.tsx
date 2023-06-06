@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <section className={'flex flex-col justify-center align-middle items-center py-8 bg-green-200'}>
           <div className={'pb-4'}>
             <Link href={'/'}>
-              <span className={'font-bold text-2xl'}> GEERS </span>
+              <span className={'font-bold text-2xl cursor-pointer'}> GEERS </span>
             </Link>
           </div>
           <ConnectButton />
