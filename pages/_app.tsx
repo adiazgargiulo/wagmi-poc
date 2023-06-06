@@ -1,40 +1,54 @@
 import '../styles/globals.css';
 import '@rainbow-me/rainbowkit/styles.css';
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import {ConnectButton, getDefaultWallets, RainbowKitProvider} from '@rainbow-me/rainbowkit';
 import type { AppProps } from 'next/app';
-import { configureChains, createClient, WagmiConfig } from 'wagmi';
-import { arbitrum, goerli, mainnet, optimism, polygon } from 'wagmi/chains';
+import { configureChains, createConfig, WagmiConfig } from 'wagmi';
+import { goerli, mainnet, polygon, polygonMumbai } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
+import { Toaster } from 'react-hot-toast';
+import styles from "../styles/Home.module.css";
+import Head from "next/head";
+import Link from "next/link";
 
-const { chains, provider, webSocketProvider } = configureChains(
+const { chains, publicClient } = configureChains(
   [
-    mainnet,
-    polygon,
-    optimism,
-    arbitrum,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli] : []),
+    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli, polygonMumbai] : [mainnet, polygon]),
   ],
   [publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({
-  appName: 'RainbowKit App',
+  appName: 'Globant RainbowKit App',
   projectId: 'YOUR_PROJECT_ID',
   chains,
 });
 
-const wagmiClient = createClient({
+const wagmiConfig = createConfig({
   autoConnect: true,
-  connectors,
-  provider,
-  webSocketProvider,
+  connectors: connectors,
+  publicClient,
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains}>
-        <Component {...pageProps} />
+    <WagmiConfig config={wagmiConfig}>
+      <RainbowKitProvider chains={chains} showRecentTransactions={true}>
+        <Head>
+          <title>GEERS</title>
+          <link href="/favicon.ico" rel="icon" />
+        </Head>
+        <Toaster containerStyle={{ top: '85vh' }}/>
+        <section className={'flex flex-col justify-center align-middle items-center py-8 bg-green-200'}>
+          <div className={'pb-4'}>
+            <Link href={'/'}>
+              <span className={'font-bold text-2xl'}> GEERS </span>
+            </Link>
+          </div>
+          <ConnectButton />
+        </section>
+        <main className={styles.main}>
+          <Component {...pageProps} />
+        </main>
       </RainbowKitProvider>
     </WagmiConfig>
   );
