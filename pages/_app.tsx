@@ -9,6 +9,7 @@ import { Toaster } from 'react-hot-toast';
 import styles from "../styles/Home.module.css";
 import Head from "next/head";
 import Link from "next/link";
+import { Analytics } from '@vercel/analytics/react';
 
 const { chains, publicClient } = configureChains(
   [
@@ -49,6 +50,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <main className={styles.main}>
           <Component {...pageProps} />
         </main>
+        <Analytics />
       </RainbowKitProvider>
     </WagmiConfig>
   );
