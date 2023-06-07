@@ -433,6 +433,6 @@ export const ensABI = [
     "stateMutability": "view",
     "type": "function"
   }
-]
+] as const;
 
 export default ensABI;

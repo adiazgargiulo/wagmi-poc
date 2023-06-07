@@ -12,10 +12,10 @@ import Link from "next/link";
 import { Analytics } from '@vercel/analytics/react';
 
 const { chains, publicClient } = configureChains(
-  [
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli, polygonMumbai] : [mainnet, polygon]),
-  ],
-  [publicProvider()]
+    [
+      ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli, polygonMumbai] : [mainnet, polygon]),
+    ],
+    [publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({
@@ -32,27 +32,32 @@ const wagmiConfig = createConfig({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains} showRecentTransactions={true}>
-        <Head>
-          <title>GEERS</title>
-          <link href="/favicon.ico" rel="icon" />
-        </Head>
-        <Toaster containerStyle={{ top: '85vh' }}/>
-        <section className={'flex flex-col justify-center align-middle items-center py-8 bg-green-200'}>
-          <div className={'pb-4'}>
-            <Link href={'/'}>
-              <span className={'font-bold text-2xl cursor-pointer'}> GEERS </span>
-            </Link>
-          </div>
-          <ConnectButton />
-        </section>
-        <main className={styles.main}>
-          <Component {...pageProps} />
-        </main>
-        <Analytics />
-      </RainbowKitProvider>
-    </WagmiConfig>
+      <WagmiConfig config={wagmiConfig}>
+        <RainbowKitProvider chains={chains} showRecentTransactions={true}>
+          <Head>
+            <title>GEERS</title>
+            <meta name="format-detection" content="telephone=no, date=no, email=no, address=no" />
+            <link href="/favicon.ico" rel="icon" />
+          </Head>
+          <Toaster containerStyle={{ top: '85vh' }}/>
+          <section className={'bg-purple-400'}>
+            <div className={'max-w-5xl m-auto '}>
+              <div className={'mx-4 flex flex-row justify-between align-middle items-center py-8'}>
+                <div className={''}>
+                  <Link href={'/'}>
+                    <span className={'font-bold text-2xl cursor-pointer'}> GEERS </span>
+                  </Link>
+                </div>
+                <ConnectButton />
+              </div>
+            </div>
+          </section>
+          <main className={styles.main}>
+            <Component {...pageProps} />
+          </main>
+          <Analytics />
+        </RainbowKitProvider>
+      </WagmiConfig>
   );
 }
 
