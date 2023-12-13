@@ -14,7 +14,7 @@ export const TransferBtn: FC<TransferBtnProps> = ({ to, amount }) => {
     const { data, isLoading, isError, error, write } = useContractWrite({
       address: "0x41723a346daE8c0c8487dFB3857828174B4fBd72",
       abi: erc20ABI,
-      functionName: "approve",
+      functionName: "transfer",
       args: [to, parseEther(amount)],
     });
 
