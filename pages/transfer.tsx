@@ -7,12 +7,28 @@ const TransferPage = () => {
     const amountInputRef = useRef<HTMLInputElement | null>(null);
 
     return (
-        <div className={'w-1/2 flex flex-col justify-center items-center gap-4 py-8'}>
-            <Input variant="primary" type={'text'} ref={destinationInputRef} placeholder={'destination'} />
-            <Input variant="primary" type={'number'} ref={amountInputRef} placeholder={'amount'} min={0} />
-            <TransferBtn to={'0xc3aCE27643494c0Adc725563e55a4F6FC05B2F28'} amount={'0.01'} />
-        </div>
-    )
+      <div
+        className={"w-1/2 flex flex-col justify-center items-center gap-4 py-8"}
+      >
+        <Input
+          variant="primary"
+          type={"text"}
+          ref={destinationInputRef}
+          placeholder={"destination"}
+        />
+        <Input
+          variant="primary"
+          type={"number"}
+          ref={amountInputRef}
+          placeholder={"amount"}
+          min={0}
+        />
+        <TransferBtn
+          to={`0x20209DD505b94731D7cFDe8a765012B876917928`}
+          amount={`0.1`}
+        />
+      </div>
+    );
 }
 
 export default TransferPage;

@@ -12,8 +12,8 @@ const Home: NextPage = () => {
                 <LinkCard title={'Transfer'} description={'Send transactions to the blockchain super easily'} href={'/transfer'} />
                 <LinkCard title={'Fees'} description={'Calculate fees cost depending on network status'} href={'/fees'} />
                 <LinkCard title={'Signature'} description={'Sign payloads & messages to handle secure transactions'} href={'/signature'} />
-                <LinkCard title={'ENS'} description={'Resolve ENS transfers & get user information'} href={'/ens'} disable={true} />
-                <LinkCard title={'Smart Contract'} description={'Interact with smart contract and get list of tx on demand'} href={'/sc'} />
+                {/* <LinkCard title={'ENS'} description={'Resolve ENS transfers & get user information'} href={'/ens'} disable={true} /> */}
+                {/* <LinkCard title={'Smart Contract'} description={'Interact with smart contract and get list of tx on demand'} href={'/sc'} /> */}
             </div>
         </div>
     );
