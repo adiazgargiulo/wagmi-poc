@@ -1,28 +1,33 @@
 import { FC } from "react";
 import {Button} from "../atoms/button";
-import {usePrepareSendTransaction, useSendTransaction} from "wagmi";
+import {erc20ABI, useContractWrite, usePrepareSendTransaction, useSendTransaction} from "wagmi";
 import {parseEther} from "viem";
 import {Spinner} from "../atoms/spinner";
 
 interface TransferBtnProps {
-    to: string,
-    amount: `${number}`,
+  to: `0x${string}`;
+  amount: `${number}`;
 }
 
 export const TransferBtn: FC<TransferBtnProps> = ({ to, amount }) => {
-    const {config} = usePrepareSendTransaction({
-        to: to,
-        value: parseEther(amount)
-    })
-    const {data, isLoading, isSuccess, sendTransaction} =
-        useSendTransaction(config)
+
+    const { data, isLoading, isError, error, write } = useContractWrite({
+      address: "0x41723a346daE8c0c8487dFB3857828174B4fBd72",
+      abi: erc20ABI,
+      functionName: "approve",
+      args: [to, parseEther(amount)],
+    });
+
+    if (isLoading) return <div className={"text-center"}>Loading...</div>;
+    if (isError && error)
+      console.error("error", error);
 
     return (
-        <div className={'my-4'}>
-            <Button variant={'primary'} disabled={!sendTransaction} onClick={() => sendTransaction?.()}>
-                { isLoading && <Spinner/>}
-                { isLoading ? 'Sending Transaction...' : 'Send Transaction'}
-            </Button>
-        </div>
-    )
+      <div className={"py-8"}>
+        <Button variant={"primary"} onClick={() => write()}>
+          Transfer{" "}
+        </Button>
+        <div className="mt-2">{data &&  data.hash}</div>
+      </div>
+    );
 }

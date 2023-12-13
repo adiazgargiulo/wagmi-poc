@@ -3,7 +3,6 @@ import {LinkCard} from "../components/atoms/Link/LinkCard";
 
 const Home: NextPage = () => {
 
-
     return (
         <div className={'max-w-5xl'}>
             <div className={'grid grid-cols-3'}>
