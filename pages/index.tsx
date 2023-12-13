@@ -5,7 +5,7 @@ const Home: NextPage = () => {
 
     return (
         <div className={'max-w-5xl'}>
-            <div className={'grid grid-cols-3'}>
+            <div className={'grid grid-col-1 md:grid-cols-3'}>
                 <LinkCard title={'Transactions'} description={'Get information from the transaction hash on the fly'} href={'/transactions'} />
                 <LinkCard title={'Listen to Contracts'} description={'Listen to contract events live, without pooling!'} href={'/contracts'} />
                 <LinkCard title={'Request to Contracts'} description={'Make contracts request typed safe with custom contract import'} href={'/request-contracts'} />
