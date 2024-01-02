@@ -6,7 +6,12 @@ import { FC } from "react";
 import { truncateAddress } from "../utils";
 import { ClipboardBtn } from "../utils/clipboard-btn";
 
-export const TransferNativeBtn: FC<TransferBtnProps> = ({ to, amount }) => {
+type TransferNativeBtnProps = Omit<TransferBtnProps, "asset">;
+
+export const TransferNativeBtn: FC<TransferNativeBtnProps> = ({
+  to,
+  amount,
+}) => {
   const { config } = usePrepareSendTransaction({
     to: to,
     value: parseEther(amount),

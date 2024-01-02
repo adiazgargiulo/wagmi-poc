@@ -1,75 +1,52 @@
-import {NextPage} from "next";
-import {useContractEvent} from "wagmi";
-import {erc20ABI} from 'wagmi'
-import {useState} from "react";
-import {TransactionHash} from "../types/Transactions";
-import TxDetail from "../components/transactions/TxDetail";
-import Image from "next/image";
-import QRCode from 'qrcode'
-import { Title } from "../components/atoms/text";
-import { TransferBtn } from "../components/transactions/TransferBtn";
+"use client";
+import { NextPage } from "next";
+import { ContractsView } from "../components/views/contract-view";
+import { Input } from "../components/atoms/input";
+import { Button } from "../components/atoms/button";
+import { useForm } from "react-hook-form";
 
-const contractAddress = "0x41723a346daE8c0c8487dFB3857828174B4fBd72";
+type ContractFormInput = {
+  contractAddress: `0x${string}`;
+};
 
 export const ContractsPage: NextPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm<ContractFormInput>({
+    defaultValues: {
+      contractAddress: `0x41723a346daE8c0c8487dFB3857828174B4fBd72`,
+    },
+  });
 
-    const [transferHashes, setTransferHashes] = useState<TransactionHash[]>([])
-    const [qrUrl, setQrUrl] = useState<string | undefined>(undefined)
+  const contractAddress = getValues("contractAddress");
 
-    useContractEvent({
-      address: contractAddress,
-      abi: erc20ABI,
-      eventName: "Transfer",
-      listener(transactions) {
-        const tx: TransactionHash = transactions[0]
-          .transactionHash as TransactionHash;
-        if (tx) setTransferHashes((prev) => [tx, ...prev]);
-      },
-    });
+  const handleChangeContract = (data: ContractFormInput) => {
+    console.log(data);
+    // return setContractAddress(event.target.);
+  };
 
-    QRCode.toDataURL(contractAddress).then((url: string) => {
-      console.log("qr", url);
-      setQrUrl(url);
-    });
-
-    return (
-      <div className={"my-4"}>
-        <div className={"my-4 flex items-center align-middle justify-center"}>
-          <div>
-            {qrUrl && (
-              <Image
-                src={qrUrl}
-                alt={"qr-with-address-to-scan"}
-                width={100}
-                height={100}
-              />
-            )}
-          </div>
-          <div>
-            Listening contract <br /> {contractAddress}
-          </div>
-        </div>
-        <div>
-          <TransferBtn
-            to={"0x20209DD505b94731D7cFDe8a765012B876917928"}
-            amount={"0.1"}
-          />
-        </div>
-        <div className={"flex items-center justify-center"}>
-          <Title variant={"h1"} text={"Transfers"} />
-        </div>
-        {transferHashes.length === 0 && (
-          <div className={"my-4 text-center"}>No transfers yet !</div>
-        )}
-        <div className={"my-4"}>
-          {transferHashes.map((tx, index) => (
-            <div key={index}>
-              <TxDetail hash={tx} />
-            </div>
-          ))}
-        </div>
+  return (
+    <div>
+      <div className="my-6 ">
+        <form
+          className="w-full flex flex-col gap-y-2 justify-center items-center"
+          onSubmit={handleSubmit(handleChangeContract)}
+        >
+          <Input
+            variant={"primary"}
+            {...register("contractAddress", { required: true })}
+          ></Input>
+          <Button variant={"primary"} type="submit">
+            Change contract
+          </Button>
+        </form>
       </div>
-    );
-}
+      {contractAddress && <ContractsView contractAddress={contractAddress} />}
+    </div>
+  );
+};
 
 export default ContractsPage;

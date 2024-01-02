@@ -26,6 +26,7 @@ const TransferPage = () => {
       />
       <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-4 w-full">
         <TransferBtn
+          asset="0x41723a346daE8c0c8487dFB3857828174B4fBd72"
           to={`0x20209DD505b94731D7cFDe8a765012B876917928`}
           amount={`0.1`}
         />

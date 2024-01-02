@@ -6,14 +6,15 @@ import { truncateAddress } from "../utils";
 import { ClipboardBtn } from "../utils/clipboard-btn";
 
 export interface TransferBtnProps {
+  asset: `0x${string}`;
   to: `0x${string}`;
   amount: `${number}`;
 }
 
-export const TransferBtn: FC<TransferBtnProps> = ({ to, amount }) => {
+export const TransferBtn: FC<TransferBtnProps> = ({ to, amount, asset }) => {
   const { data, isLoading, isSuccess, isError, error, write } =
     useContractWrite({
-      address: "0x41723a346daE8c0c8487dFB3857828174B4fBd72",
+      address: asset,
       abi: erc20ABI,
       functionName: "transfer",
       args: [to, parseEther(amount)],
