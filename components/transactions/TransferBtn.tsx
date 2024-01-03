@@ -3,7 +3,7 @@ import { Button } from "../atoms/button";
 import { erc20ABI, useContractWrite } from "wagmi";
 import { parseEther } from "viem";
 import { truncateAddress } from "../utils";
-import { ClipboardBtn } from "../utils/clipboard-btn";
+import { HashToClipboard } from "../utils/hash-to-clipboard";
 
 export interface TransferBtnProps {
   asset: `0x${string}`;
@@ -30,8 +30,7 @@ export const TransferBtn: FC<TransferBtnProps> = ({ to, amount, asset }) => {
       </Button>
       {isSuccess && data?.hash && (
         <div className="flex flex-row items-center justify-center mt-4 gap-2">
-          <div className="">{truncateAddress(data?.hash)}</div>
-          <ClipboardBtn text={data?.hash} />
+          <HashToClipboard hash={data?.hash} truncated />
         </div>
       )}
     </div>

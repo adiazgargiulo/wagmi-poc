@@ -2,6 +2,7 @@ import {TransferBtn} from "../components/transactions/TransferBtn";
 import {Input} from "../components/atoms/input";
 import {useRef} from "react";
 import { TransferNativeBtn } from "../components/transactions/TransferNativeBtn";
+import { Title } from "../components/atoms/text";
 
 const TransferPage = () => {
   const destinationInputRef = useRef<HTMLInputElement | null>(null);
@@ -11,6 +12,9 @@ const TransferPage = () => {
     <div
       className={"w-1/2 flex flex-col justify-center items-center gap-4 py-8"}
     >
+      <div className={"my-8 text-center"}>
+        <Title variant={"h1"} text={"Transfer"} />
+      </div>
       <Input
         variant="primary"
         type={"text"}

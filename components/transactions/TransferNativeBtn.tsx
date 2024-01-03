@@ -3,8 +3,7 @@ import { usePrepareSendTransaction, useSendTransaction } from "wagmi";
 import { Button } from "../atoms/button";
 import { TransferBtnProps } from "./TransferBtn";
 import { FC } from "react";
-import { truncateAddress } from "../utils";
-import { ClipboardBtn } from "../utils/clipboard-btn";
+import { HashToClipboard } from "../utils/hash-to-clipboard";
 
 type TransferNativeBtnProps = Omit<TransferBtnProps, "asset">;
 
@@ -29,8 +28,7 @@ export const TransferNativeBtn: FC<TransferNativeBtnProps> = ({
       </Button>
       {isSuccess && data?.hash && (
         <div className="flex flex-row items-center justify-center mt-4 gap-2">
-          <div className="">{truncateAddress(data?.hash)}</div>
-          <ClipboardBtn text={data?.hash} />
+          <HashToClipboard hash={data?.hash} truncated />
         </div>
       )}
     </div>
