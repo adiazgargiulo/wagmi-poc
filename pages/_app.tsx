@@ -3,19 +3,28 @@ import '@rainbow-me/rainbowkit/styles.css';
 import {ConnectButton, getDefaultWallets, RainbowKitProvider} from '@rainbow-me/rainbowkit';
 import type { AppProps } from 'next/app';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { goerli, mainnet, polygon, polygonMumbai } from 'wagmi/chains';
-import { publicProvider } from 'wagmi/providers/public';
-import { Toaster } from 'react-hot-toast';
+import {
+  goerli,
+  mainnet,
+  polygon,
+  polygonMumbai,
+  rootstock,
+} from "wagmi/chains";
+import { publicProvider } from "wagmi/providers/public";
+import { Toaster } from "react-hot-toast";
 import styles from "../styles/Home.module.css";
 import Head from "next/head";
 import Link from "next/link";
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from "@vercel/analytics/react";
+import { rootstockTestnet } from "../types/rootstockTestnet";
 
 const { chains, publicClient } = configureChains(
-    [
-      ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli, polygonMumbai] : [mainnet, polygon]),
-    ],
-    [publicProvider()]
+  [
+    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true"
+      ? [goerli, polygonMumbai, rootstockTestnet]
+      : [mainnet, polygon, rootstock]),
+  ],
+  [publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({
