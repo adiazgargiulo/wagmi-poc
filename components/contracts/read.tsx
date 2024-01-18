@@ -23,17 +23,36 @@ export const ReadContract = () => {
           abi: erc20ABI,
           functionName: "symbol",
         },
+        {
+          address: address,
+          abi: erc20ABI,
+          functionName: "totalSupply",
+        },
       ],
     });
 
-    if (isLoading) return <div className={'flex justify-center items-center flex-col'}>Loading...</div>
-    if (isError) return <div className={'flex justify-center items-center flex-col'}>Error fetching decimals</div>
+    if (isLoading)
+      return (
+        <div className={"flex justify-center items-center flex-col"}>
+          Loading...
+        </div>
+      );
+    if (isError)
+      return (
+        <div className={"flex justify-center items-center flex-col"}>
+          Error fetching decimals
+        </div>
+      );
 
-    if (!data) return (
-      <div className="flex justify-center items-center flex-col"> No data </div>
-    );
+    if (!data)
+      return (
+        <div className="flex justify-center items-center flex-col">
+          {" "}
+          No data{" "}
+        </div>
+      );
 
-    const [decimals, name, symbol] = data;
+    const [decimals, name, symbol, supply] = data;
 
     return (
       <div className={"flex justify-center items-center flex-col"}>
@@ -41,6 +60,7 @@ export const ReadContract = () => {
         <div>{decimals && <span>Decimals: {decimals.result}</span>}</div>
         <div>{name && <span>Name: {name.result}</span>}</div>
         <div>{symbol && <span>Symbol: {symbol.result}</span>}</div>
+        <div>{supply && <span>Supply: {supply.result?.toString()}</span>}</div>
       </div>
     );
 }
