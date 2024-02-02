@@ -3,8 +3,11 @@ import '@rainbow-me/rainbowkit/styles.css';
 import {
   ConnectButton,
   connectorsForWallets,
+  darkTheme,
+  lightTheme,
   getDefaultWallets,
   RainbowKitProvider,
+  Theme,
 } from "@rainbow-me/rainbowkit";
 import type { AppProps } from "next/app";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
@@ -29,6 +32,7 @@ import {
   walletConnectWallet,
 } from "@rainbow-me/rainbowkit/wallets";
 import { CustomRainbowKitBtn } from "../components/custom-rainbowkit/button";
+import { merge } from "lodash";
 
 const { chains, publicClient } = configureChains(
   [
@@ -71,6 +75,13 @@ const wagmiConfig = createConfig({
   publicClient,
 });
 
+const theme = merge(lightTheme(), {
+  colors: {
+    accentColor: "#bed734",
+    accentColorForeground: "#080808",
+  },
+} as Theme);
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
@@ -78,6 +89,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         chains={chains}
         showRecentTransactions={true}
         locale="es"
+        theme={theme}
       >
         <Head>
           <title>GEERS</title>
@@ -88,7 +100,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <link href="/favicon.ico" rel="icon" />
         </Head>
         <Toaster containerStyle={{ top: "85vh" }} />
-        <section className={"bg-purple-400"}>
+        <section className={"bg-[#50238c]"}>
           <div className={"max-w-5xl m-auto "}>
             <div
               className={
@@ -97,9 +109,13 @@ function MyApp({ Component, pageProps }: AppProps) {
             >
               <div className={""}>
                 <Link href={"/"}>
-                  <span className={"font-bold text-2xl cursor-pointer"}>
+                  <span
+                    className={
+                      "font-bold text-2xl cursor-pointer text-[#bed734]"
+                    }
+                  >
                     {" "}
-                    GEERS{" "}
+                    Globant University{" "}
                   </span>
                 </Link>
               </div>
