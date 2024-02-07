@@ -1,14 +1,13 @@
 "use client";
-import { NextPage } from "next";
 import { useContractEvent } from "wagmi";
 import { erc20ABI } from "wagmi";
 import { FC, useEffect, useState } from "react";
-import Image from "next/image";
-import QRCode from "qrcode";
 import { TransactionHash } from "../../types/Transactions";
 import { Title } from "../atoms/text";
 import { TransferBtn } from "../transactions/TransferBtn";
 import TxDetail from "../transactions/TxDetail";
+import Image from "next/image";
+import QRCode from "qrcode";
 
 interface ContractsViewProps {
   contractAddress: `0x${string}`;

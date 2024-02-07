@@ -13,8 +13,6 @@ const TxDetail = ({ hash }: TxDetailProps) => {
     hash: hash,
   });
 
-  console.log("tx", data);
-
   if (isError) return <> Error... {JSON.stringify(error)} </>;
   if (!data || isLoading) return <> Loading... </>;
 
